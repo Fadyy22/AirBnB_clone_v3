@@ -94,11 +94,13 @@ class DBStorage:
     def count(self, cls=None):
         """returns the number of objects in storage matching the given class.
         if no class is passed, returns the count of all objects in storage"""
+        no_objects = 0
+
         if cls is None:
-            no_objects = 0
             for clss in classes.values():
                 no_objects += self.__session.query(clss).count()
-            return no_objects
         else:
+            if type(cls) == str:
+                cls = classes[cls]
             no_objects = self.__session.query(cls).count()
-            return no_objects
+        return no_objects
