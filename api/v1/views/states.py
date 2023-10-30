@@ -6,7 +6,7 @@ from models import storage
 from models.state import State
 
 
-@app.route('/api/v1/states', methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_states():
     """Retrieves the list of all State objects: GET /api/v1/states"""
     states = State.all()
@@ -16,7 +16,7 @@ def get_states():
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def r_state_id(state_id):
     """ GET a State object """
-    state = State.get(state_id)
+    state = storage.get("State", state_id)
     if state:
         return jsonify(state.to_dict())
     else:
@@ -27,7 +27,7 @@ def r_state_id(state_id):
                  strict_slashes=False)
 def del_state(state_id):
     """ Deleting"""
-    state = State.get(state_id)
+    state = storage.get("State", state_id)
     if not state:
         abort(404)
     state.delete()
