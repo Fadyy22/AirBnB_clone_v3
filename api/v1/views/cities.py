@@ -7,7 +7,7 @@ from models.city import City
 from models.state import State
 
 
-@app_views.get('/states/<state_id>/cities', strict_slashes=False)
+@app_views.get("/states/<state_id>/cities", strict_slashes=False)
 def get_cities(state_id):
     """get a list of all cities in a state"""
     state = storage.get(State, state_id)
@@ -16,7 +16,7 @@ def get_cities(state_id):
     return jsonify([city.to_dict() for city in state.cities])
 
 
-@app_views.get('/cities/<city_id>', strict_slashes=False)
+@app_views.get("/cities/<city_id>", strict_slashes=False)
 def cityid(city_id):
     """get city"""
     city = storage.get(City, city_id)
@@ -26,7 +26,7 @@ def cityid(city_id):
         abort(404)
 
 
-@app_views.delete('/cities/<city_id>', strict_slashes=False)
+@app_views.delete("/cities/<city_id>", strict_slashes=False)
 def del_city(city_id):
     """delete city"""
     city = storage.get(City, city_id)
@@ -37,7 +37,7 @@ def del_city(city_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.post('/states/<state_id>/cities', strict_slashes=False)
+@app_views.post("/states/<state_id>/cities", strict_slashes=False)
 def post_city(state_id):
     """create a new city in a state"""
     state = storage.get(State, state_id)
@@ -55,7 +55,7 @@ def post_city(state_id):
     return make_response(jsonify(city.to_dict()), 201)
 
 
-@app_views.put('/cities/<city_id>', strict_slashes=False)
+@app_views.put("/cities/<city_id>", strict_slashes=False)
 def put_city(city_id):
     """update existing city"""
     city = storage.get(City, city_id)

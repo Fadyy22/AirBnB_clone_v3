@@ -6,14 +6,14 @@ from models import storage
 from models.amenity import Amenity
 
 
-@app_views.get('/amenities', strict_slashes=False)
+@app_views.get("/amenities", strict_slashes=False)
 def get_amenities():
     """get a list of all amenities"""
     amenities = storage.all(Amenity).values()
     return jsonify([obj.to_dict() for obj in amenities])
 
 
-@app_views.get('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.get("/amenities/<amenity_id>", strict_slashes=False)
 def amenityid(amenity_id):
     """get amenity"""
     amenity = storage.get(Amenity, amenity_id)
@@ -23,7 +23,7 @@ def amenityid(amenity_id):
         abort(404)
 
 
-@app_views.delete('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.delete("/amenities/<amenity_id>", strict_slashes=False)
 def del_amenity(amenity_id):
     """delete amenity"""
     amenity = storage.get(Amenity, amenity_id)
@@ -34,7 +34,7 @@ def del_amenity(amenity_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.post('/amenities', strict_slashes=False)
+@app_views.post("/amenities", strict_slashes=False)
 def post_amenity():
     """create a new amenity"""
     data = request.get_json()
@@ -48,7 +48,7 @@ def post_amenity():
     return make_response(jsonify(amenity.to_dict()), 201)
 
 
-@app_views.put('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.put("/amenities/<amenity_id>", strict_slashes=False)
 def put_amenity(amenity_id):
     """update existing amenity"""
     amenity = storage.get(Amenity, amenity_id)
