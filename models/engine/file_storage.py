@@ -94,6 +94,6 @@ class FileStorage:
             no_objects = 0
 
             for obj in self.__objects.values():
-                if obj.__class__.__name__ == cls:
+                if type(obj) == cls:
                     no_objects += 1
             return no_objects
