@@ -79,7 +79,7 @@ class FileStorage:
     def get(self, cls, id):
         """returns the object based on the class and its ID,
         or None if not found"""
-        key = cls + "." + id
+        key = "{}.{}".format(cls, id)
         try:
             return self.__objects[key]
         except Exception:
