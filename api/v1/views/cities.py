@@ -11,7 +11,7 @@ from models.state import State
                  strict_slashes=False)
 def get_cities(state_id):
     """Retrieves the list of all city objects: GET /api/v1/states"""
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if not state:
         abort(404)
     return jsonify([city.to_dict() for city in state.cities])
@@ -43,6 +43,9 @@ def del_city(city_id):
                  strict_slashes=False)
 def post_city():
     """Creating a State object using city"""
+    state = storage.get(State, state_id)
+    if not state:
+        abort(404)
     data = request.get_json()
     if not data:
         abort(400, "Not a JSON")
@@ -67,6 +70,7 @@ def put_city(city_id):
 
     data.pop("id", None)
     data.pop("created_at", None)
+    data.pop("state_id", None)
     data.pop("updated_at", None)
     for key, value in data.items():
         setattr(city, key, value)
