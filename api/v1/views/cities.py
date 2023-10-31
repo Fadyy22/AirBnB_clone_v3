@@ -18,7 +18,7 @@ def get_cities(state_id):
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
-def r_city_id(city_id):
+def cityid(city_id):
     """GETting city  object ID"""
     city = storage.get(City, city_id)
     if city:
@@ -41,7 +41,7 @@ def del_city(city_id):
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
                  strict_slashes=False)
-def post_city():
+def post_city(state_id):
     """Creating a State object using city"""
     state = storage.get(State, state_id)
     if not state:
