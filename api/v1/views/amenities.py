@@ -8,7 +8,7 @@ from models.amenity import Amenity
 
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def get_amenities():
-    """Retrieves the list of all city objects: GET /api/v1/states"""
+    """Retrieves the list of all amenity objects: GET /api/v1/states"""
     amenities = storage.all(Amenity)
     if not amenities:
         abort(404)
@@ -18,8 +18,8 @@ def get_amenities():
 @app_views.route('/amenities/<amenity_id>', methods=['GET'],
                  strict_slashes=False)
 def amenityid(amenity_id):
-    """GETting city  object ID"""
-    amenity = storage.get(City, amenity_id)
+    """GETting Amenity  object ID"""
+    amenity = storage.get(Amenity, amenity_id)
     if amenity:
         return jsonify(amenity.to_dict())
     else:
