@@ -70,8 +70,8 @@ def put_city(city_id):
         abort(400, "Not a JSON")
 
     data.pop("id", None)
-    data.pop("state_id", None)
     data.pop("created_at", None)
+    data.pop("state_id", None)
     data.pop("updated_at", None)
     for key, value in data.items():
         setattr(city, key, value)
