@@ -32,10 +32,10 @@ def get_review(review_id):
                  strict_slashes=False)
 def del_review(review_id):
     """delete review"""
-    place = storage.get(Place, review_id)
-    if not place:
+    review = storage.get(Review, review_id)
+    if not review:
         abort(404)
-    place.delete()
+    review.delete()
     storage.save()
     return make_response(jsonify({}), 200)
 
