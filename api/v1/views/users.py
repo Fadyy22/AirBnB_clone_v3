@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Create a new view for User objects"""
+"""handles all RESTFul API actions for User objects"""
 from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
