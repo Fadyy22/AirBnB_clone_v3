@@ -71,7 +71,7 @@ test_db_storage.py"
         self.assertIsNot(DBStorage.__doc__, None,
                          "DBStorage class needs a docstring")
         self.assertTrue(
-            len(DBStorage.__doc__) >= 1,  # type: ignore
+            len(DBStorage.__doc__) >= 1,
             "DBStorage class needs a docstring"
         )
 
@@ -83,7 +83,7 @@ test_db_storage.py"
                 "{:s} method needs a docstring".format(func[0])
             )
             self.assertTrue(
-                len(func[1].__doc__) >= 1,  # type: ignore
+                len(func[1].__doc__) >= 1,
                 "{:s} method needs a docstring".format(func[0]),
             )
 
