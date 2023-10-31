@@ -8,16 +8,14 @@ from models.amenity import Amenity
 
 @app_views.get('/amenities', strict_slashes=False)
 def get_amenities():
-    """Retrieves the list of all amenity objects: GET /api/v1/states"""
-    amenities = storage.all(Amenity)
-    if not amenities:
-        abort(404)
-    return jsonify([obj.to_dict() for obj in amenities.values()])
+    """get a list of all amenities"""
+    amenities = storage.all(Amenity).values()
+    return jsonify([obj.to_dict() for obj in amenities])
 
 
 @app_views.get('/amenities/<amenity_id>', strict_slashes=False)
 def amenityid(amenity_id):
-    """GETting Amenity  object ID"""
+    """get amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity:
         return jsonify(amenity.to_dict())
@@ -27,7 +25,7 @@ def amenityid(amenity_id):
 
 @app_views.delete('/amenities/<amenity_id>', strict_slashes=False)
 def del_amenity(amenity_id):
-    """Deleting"""
+    """delete amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
@@ -38,7 +36,7 @@ def del_amenity(amenity_id):
 
 @app_views.post('/amenities', strict_slashes=False)
 def post_amenity():
-    """Creating amenity object using post"""
+    """create a new amenity"""
     data = request.get_json()
     if not data:
         abort(400, "Not a JSON")
@@ -52,7 +50,7 @@ def post_amenity():
 
 @app_views.put('/amenities/<amenity_id>', strict_slashes=False)
 def put_amenity(amenity_id):
-    """put amenity"""
+    """update existing amenity"""
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)

@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-"""Create a new view for User"""
+"""Create a new view for User objects"""
 from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
 from models.user import User
-import hashlib
 
 
 @app_views.get('/users', strict_slashes=False)
 def users():
-    """ getting the list of all User objects """
-    users = storage.all(User)
-    return jsonify([obj.to_dict() for obj in users.values()])
+    """get a list of all users"""
+    users = storage.all(User).values()
+    return jsonify([obj.to_dict() for obj in users])
 
 
 @app_views.get('/users/<user_id>', strict_slashes=False)
 def userid(user_id):
+    """get user"""
     user = storage.get(User, user_id)
     if user:
         return jsonify(user.to_dict())
@@ -25,7 +25,7 @@ def userid(user_id):
 
 @app_views.delete('/users/<user_id>', strict_slashes=False)
 def del_user(user_id):
-    """Deleting"""
+    """delete user"""
     user = storage.get(User, user_id)
     if not user:
         abort(404)
@@ -36,6 +36,7 @@ def del_user(user_id):
 
 @app_views.post('/users', strict_slashes=False)
 def post_user():
+    """create a new user"""
     data = request.get_json()
     if not data:
         abort(400, "Not a JSON")
@@ -51,7 +52,7 @@ def post_user():
 
 @app_views.put('/users/<user_id>', strict_slashes=False)
 def put_user(user_id):
-    """updating"""
+    """update existing user"""
     user = storage.get(User, user_id)
     if not user:
         abort(404)

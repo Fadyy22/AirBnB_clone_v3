@@ -10,7 +10,7 @@ from models.user import User
 
 @app_views.get('/cities/<city_id>/places', strict_slashes=False)
 def get_places_in_city(city_id):
-    """Retrieves the list of all places objects in a city"""
+    """get a list of all places in a city"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -19,7 +19,7 @@ def get_places_in_city(city_id):
 
 @app_views.get('places/<place_id>', strict_slashes=False)
 def get_place(place_id):
-    """get place object"""
+    """get place"""
     place = storage.get(Place, place_id)
     if place:
         return jsonify(place.to_dict())
@@ -29,7 +29,7 @@ def get_place(place_id):
 
 @app_views.delete('/places/<place_id>', strict_slashes=False)
 def delete_place(place_id):
-    """Deleting"""
+    """delete place"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
@@ -40,7 +40,7 @@ def delete_place(place_id):
 
 @app_views.post('/cities/<city_id>/places', strict_slashes=False)
 def create_place(city_id):
-    """Creating a place object"""
+    """create a new place in a city"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -68,7 +68,7 @@ def create_place(city_id):
 
 @app_views.put('/places/<place_id>', strict_slashes=False)
 def update_place(place_id):
-    """updating place object"""
+    """update existing place"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
