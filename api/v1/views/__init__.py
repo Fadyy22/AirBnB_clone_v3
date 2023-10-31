@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""imports and create an instance of blueprint"""
+"""imports and creates an instance of blueprint"""
 from flask import Blueprint
 
 app_views = Blueprint("app_views", __name__, url_prefix="/api/v1")
