@@ -4,6 +4,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 """
 
 from datetime import datetime
+import email
 import inspect
 import models
 from models.engine import db_storage
@@ -111,9 +112,9 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != "db", "not testing file storage")
     def test_get(self):
         """Test that get properly gets objects from the database"""
-        user = User()
-        user.save()
-        self.assertEqual(models.storage.get(User, user.id), user)
+        state = State(name="Cairo")
+        state.save()
+        self.assertEqual(models.storage.get(State, state.id), state)
 
     @unittest.skipIf(models.storage_t != "db", "not testing file storage")
     def test_count(self):
