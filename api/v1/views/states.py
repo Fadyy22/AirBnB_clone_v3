@@ -9,7 +9,7 @@ from models.state import State
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_states():
     """Retrieves the list of all State objects: GET /api/v1/states"""
-    states = State.all()
+    states = storage.all(state_.values()
     return jsonify([state.to_dict() for state in states])
 
 
@@ -68,3 +68,6 @@ def put_state(state_id):
 
     storage.save()
     return make_response(jsonify(state.to_dict()), 200)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
