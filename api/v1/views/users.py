@@ -71,8 +71,9 @@ def put_user(user_id):
     data.pop("created_at", None)
     data.pop("updated_at", None)
 
-    m = hashlib.md5(str.encode(data["password"]))
-    data["password"] = m.hexdigest()
+    if "password" in data:
+        m = hashlib.md5(str.encode(data["password"]))
+        data["password"] = m.hexdigest()
 
     for key, value in data.items():
         setattr(user, key, value)
