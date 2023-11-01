@@ -4,6 +4,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from models import storage
 from models.user import User
+import hashlib
 
 
 @app_views.route("/users", methods=["GET"], strict_slashes=False)
@@ -42,9 +43,13 @@ def post_user():
         abort(400, "Not a JSON")
     if "email" not in data:
         abort(400, "Missing email")
-    user = User(**data)
     if "password" not in data:
         abort(400, "Missing password")
+
+    m = hashlib.md5(str.encode(data["password"]))
+    data["password"] = m.hexdigest()
+
+    user = User(**data)
     storage.new(user)
     storage.save()
     return make_response(jsonify(user.to_dict()), 201)
@@ -65,6 +70,10 @@ def put_user(user_id):
     data.pop("email", None)
     data.pop("created_at", None)
     data.pop("updated_at", None)
+
+    m = hashlib.md5(str.encode(data["password"]))
+    data["password"] = m.hexdigest()
+
     for key, value in data.items():
         setattr(user, key, value)
 
